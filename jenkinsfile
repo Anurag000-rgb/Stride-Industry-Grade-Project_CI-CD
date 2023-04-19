@@ -1,0 +1,70 @@
+pipeline {
+    tools{
+        jdk 'JAVA'
+        maven 'MVN'
+        git 'Default'
+    }
+    
+    agent any
+    
+    stages {
+        stage('1.Clone Repo'){
+            steps {
+                checkout([$class: 'GitSCM', branches: [[name: '*/main']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'Anurag000-rgb', url: 'https://github.com/Anurag000-rgb/project1.git/']]])
+                sh "ls -lart ./*"
+            }
+        }
+        
+        stage('2.Compile Code'){
+            steps{
+                sh 'mvn compile'
+            }
+        }
+        
+        stage('3.Code Review'){
+            steps{
+                sh 'mvn pmd:pmd'
+            }
+        }
+
+        stage('4.Unit Testing'){
+            steps{
+                sh 'mvn test'
+            }
+            post{
+                success{
+                    junit 'target/surefire-reports/*.xml'
+                }
+            }
+
+        }
+
+        stage('5.Code Coverage'){
+            steps{
+                sh 'mvn clean test jacoco:report'
+            }
+            post{
+                success{
+                       archiveArtifacts artifacts: 'target/site/jacoco/index.html', fingerprint: true
+                }
+            }
+        }
+
+        stage('6.Package'){
+            steps{
+                sh 'mvn package'
+            }
+        }
+        
+        stage('7.Deploy the code on tomcat server'){
+            steps{
+                
+                sshagent(['slave']) {
+                    sh 'scp -o StrictHostKeyChecking=no /var/lib/jenkins/workspace/CICD-Pipeline/target/ABCtechnologies-1.0.war ec2-user@44.201.204.164:/opt/tomcat/webapps'
+                }
+            }
+            
+        }
+
+    }
+}
