@@ -1,0 +1,38 @@
+---
+- hosts: webservers
+  become: true
+  become_user: root
+  tasks:
+  - name: install docker
+    yum: name=docker state=present
+  - name: start docker
+    service: name=docker state=started
+  - name: install git
+    yum: name=git state=present
+  - name: clone a repo
+    git: repo=https://github.com/Anurag000-rgb/project1.git dest=/tmp/project1
+  - name: Build an image and push it to a private repo
+    community.docker.docker_image:
+      build:
+        path: "/tmp/project1"
+      name: docker.io/anurag2000/project1
+      tag: v1
+      push: true
+      source: build
+    register: out
+  - debug:
+      var: out
+  - name: start a container
+    community.docker.docker container:
+      name: project1
+      image: anurag2000/project1
+      state: started
+      ports:
+        - 1234:8080
+      restart: true
+    register: out
+  - debug:
+      var: out
+
+
+
