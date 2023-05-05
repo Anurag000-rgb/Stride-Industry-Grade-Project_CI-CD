@@ -68,7 +68,7 @@ pipeline {
 
         stage('8.Running playbooks'){
             steps{
-                ansiblePlaybook become: true, inventory: '/playbooks', playbook: '/playbooks/playbook1.yml'
+                ansiblePlaybook become: true, inventory: '/var/lib/jenkins/workspace/CICD-Pipeline/playbooks', playbook: '/var/lib/jenkins/workspace/CICD-Pipeline/playbooks/playbook1.yml'
             }
         }
 
