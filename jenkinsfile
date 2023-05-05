@@ -68,7 +68,7 @@ pipeline {
 
         stage('8.Running playbooks'){
             steps{
-                ansiblePlaybook become: true, inventory: '/playbooks', playbook: '/playbooks/playbook1.yml', sudo: true
+                ansiblePlaybook become: true, inventory: '/playbooks', playbook: '/playbooks/playbook1.yml'
             }
         }
 
