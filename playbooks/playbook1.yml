@@ -1,7 +1,7 @@
 ---
 - hosts: webservers
   become: true
-  become_user: ec2-user
+  become_user: su ec2-user
   vars:
     docker_image_name: "project1"
     github_repo_url: "https://github.com/Anurag000-rgb/project1.git"
