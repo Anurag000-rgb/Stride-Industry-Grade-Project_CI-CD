@@ -43,17 +43,13 @@
         name: "{{ dockerhub_repo_name }}"
         push: yes
 
-  - name: start a container
-    community.docker.docker container:
-      name: project1
-      image: anurag2000/project1
-      state: started
-      ports:
-        - 1234:8080
-      restart: true
-    register: out
-  - debug:
-      var: out
+  - name: Start Docker container
+    docker_container:
+        name: "{{ docker_image_name }}"
+        image: "{{ dockerhub_repo_name }}"
+        state: started
+        ports:
+          - "1234:8080"
 
 
 
