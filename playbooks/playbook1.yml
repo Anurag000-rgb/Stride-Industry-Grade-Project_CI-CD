@@ -2,6 +2,13 @@
 - hosts: webservers
   become: true
   become_user: root
+  vars:
+    docker_image_name: "project1"
+    github_repo_url: "https://github.com/Anurag000-rgb/project1.git"
+    dockerhub_username: "my-dockerhub-username"
+    dockerhub_password: "my-dockerhub-password"
+    dockerhub_repo_name: "my-dockerhub-username/project1"
+
   tasks:
   - name: install docker
     yum: name=docker state=present
@@ -10,18 +17,32 @@
   - name: install git
     yum: name=git state=present
   - name: clone a repo
-    git: repo=https://github.com/Anurag000-rgb/project1.git dest="/tmp/project1"
-  - name: Build an image and push it to a private repo
-    community.docker.docker_image:
-      build:
-        path: "/tmp/project1"
-      name: docker.io/anurag2000/project1
-      tag: v1
-      push: true
-      source: build
-    register: out
-  - debug:
-      var: out
+    git: repo="{{ github_repo_url }}" dest="/tmp/project1"
+
+  - name: Build Docker image
+    docker_image:
+        build:
+          path: "/tmp/project1"
+        name: "{{ docker_image_name }}"
+        state: present
+
+  - name: Login to DockerHub
+    docker_login:
+        registry_url: "https://hub.docker.com/u/anurag2000"
+        username: "{{ dockerhub_username }}"
+        password: "{{ dockerhub_password }}"
+
+  - name: Tag Docker image
+    docker_image:
+        name: "{{ docker_image_name }}"
+        tag: "{{ dockerhub_repo_name }}"
+        source: local
+
+  - name: Push Docker image to DockerHub
+    docker_image:
+        name: "{{ dockerhub_repo_name }}"
+        push: yes
+
   - name: start a container
     community.docker.docker container:
       name: project1

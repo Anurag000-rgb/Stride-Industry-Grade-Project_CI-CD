@@ -68,7 +68,11 @@ pipeline {
 
         stage('8.Running playbooks and Deploying Images'){
             steps{
-              sh 'ansible-playbook /var/lib/jenkins/workspace/CICD-Pipeline/playbooks/playbook1.yml'
+              ansiblePlaybook(
+                     playbook: 'playbooks/playbook1.yml',
+                     inventory: 'playbooks/dev.inv',
+                     extras: '-e "dockerhub_username=anurag2000 dockerhub_password=Anurag2000"'
+                )
             }
         }
 
