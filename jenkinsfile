@@ -66,9 +66,9 @@ pipeline {
             
         }
 
-        stage('8.Running playbooks'){
+        stage('8.Running playbooks and Deploying Images'){
             steps{
-                ansiblePlaybook become: true, disableHostKeyChecking: true, installation: 'project1', inventory: '/playbooks/dev.inv', playbook: 'playbooks/playbook1.yml'
+                sh 'ansible-playbook /var/lib/jenkins/workspace/CICD-Pipeline/playbooks/playbook1.yml'
             }
         }
 
