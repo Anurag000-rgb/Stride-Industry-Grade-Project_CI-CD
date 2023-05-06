@@ -10,7 +10,7 @@
   - name: install git
     yum: name=git state=present
   - name: clone a repo
-    git: repo=https://github.com/Anurag000-rgb/project1.git dest=/tmp/project1
+    git: repo=https://github.com/Anurag000-rgb/project1.git dest="/tmp/project1"
   - name: Build an image and push it to a private repo
     community.docker.docker_image:
       build:
