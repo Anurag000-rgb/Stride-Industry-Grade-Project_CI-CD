@@ -68,7 +68,7 @@ pipeline {
 
         stage('8.Running playbooks and Deploying Images'){
             steps{
-              sh 'ansible-playbook /var/lib/jenkins/workspace/CICD-Pipeline/playbooks/playbook1.yml
+              sh 'ansible-playbook /var/lib/jenkins/workspace/CICD-Pipeline/playbooks/playbook1.yml'
             }
         }
 
