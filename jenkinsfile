@@ -69,7 +69,7 @@ pipeline {
         stage('8.Running playbooks and Deploying Images'){
             steps{
               ansiblePlaybook(
-                     playbook: 'playbooks/playbook.yml',
+                     playbook: 'playbooks/playbook.yaml',
                      inventory: 'playbooks/inventory',
                      extras: '-e \'dockerhub_username=anurag2000 dockerhub_password=Anurag2000\''
 
