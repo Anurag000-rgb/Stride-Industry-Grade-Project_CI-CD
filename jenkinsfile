@@ -10,7 +10,7 @@ pipeline {
     stages {
         stage('1.Clone Repo'){
             steps {
-                checkout([$class: 'GitSCM', branches: [[name: '*/main']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [credentialsId: 'Anurag000-rgb', url: 'https://github.com/Anurag000-rgb/project1.git/']])
+                checkout([$class: 'GitSCM', branches: [name: '*/main'], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [credentialsId: 'Anurag000-rgb', url: 'https://github.com/Anurag000-rgb/project1.git/']])
                 sh "ls -lart ./*"
             }
         }
