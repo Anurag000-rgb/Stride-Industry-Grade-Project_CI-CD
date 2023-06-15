@@ -1,2 +1,2 @@
 [webservers]
-ansible_host=172.31.18.76 ansible_ssh_pass=Anurag@123
+172.31.34.128 ansible_user=ec2-user

@@ -69,7 +69,9 @@ pipeline {
         stage('8.Running playbooks and Deploying Images'){
             steps{
               ansiblePlaybook(
+                     installation: 'myansible'
                      playbook: 'playbooks/playbook.yaml',
+                     disableHostKeyChecking: true,
                      inventory: 'playbooks/inventory',
                      extras: '-e \'dockerhub_username=anurag2000 dockerhub_password=Anurag2000\''
 
