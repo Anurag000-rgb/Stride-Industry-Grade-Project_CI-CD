@@ -70,7 +70,6 @@ pipeline {
             steps{
               ansiblePlaybook(
                      playbook: 'playbooks/playbook.yaml',
-                     installation: 'myansible'
                      disableHostKeyChecking: true,
                      inventory: 'playbooks/inventory',
                      extras: '-e \'dockerhub_username=anurag2000 dockerhub_password=Anurag2000\''
