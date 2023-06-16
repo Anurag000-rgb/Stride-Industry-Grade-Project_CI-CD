@@ -3,6 +3,7 @@
   become: yes
   become_user: ec2-user
   vars:
+    ansible_python_interpreter: /usr/bin/python3
     docker_image_name: "project1"
     github_repo_url: "https://github.com/Anurag000-rgb/project1.git"
     dockerhub_username: "my-dockerhub-username"
