@@ -21,31 +21,31 @@
     git: repo="{{ github_repo_url }}" dest="/tmp/project1"
 
   - name: Build Docker image
-    docker_image:
+    community.docker.docker_image:
         build:
           path: "/tmp/project1"
         name: "{{ docker_image_name }}"
         state: present
 
   - name: Login to DockerHub
-    docker_login:
+    community.docker.docker_login:
         registry_url: "https://hub.docker.com/u/anurag2000"
         username: "{{ dockerhub_username }}"
         password: "{{ dockerhub_password }}"
 
   - name: Tag Docker image
-    docker_image:
+    community.docker.docker_image:
         name: "{{ docker_image_name }}"
         tag: "{{ dockerhub_repo_name }}"
         source: local
 
   - name: Push Docker image to DockerHub
-    docker_image:
+    community.docker.docker_image:
         name: "{{ dockerhub_repo_name }}"
         push: yes
 
   - name: Start Docker container
-    docker_container:
+    community.docker.docker_container:
         name: "{{ docker_image_name }}"
         image: "{{ dockerhub_repo_name }}"
         state: started
