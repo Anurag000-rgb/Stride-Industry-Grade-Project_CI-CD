@@ -5,7 +5,8 @@ RUN mkdir /usr/local/tomcat
 ADD https://dlcdn.apache.org/tomcat/tomcat-9/v9.0.76/bin/apache-tomcat-9.0.76.tar.gz /tmp/apache-tomcat-9.0.76.tar.gz
 RUN cd /tmp &&  tar xvfz apache-tomcat-9.0.76.tar.gz
 RUN cp -Rv /tmp/apache-tomcat-9.0.76/* /usr/local/tomcat/
-ADD *.war /usr/local/tomcat/webapps/
+RUN rm -rf /usr/local/tomcat/webapps/ROOT
+COPY /deploy.war /usr/local/tomcat/webapps/ROOT.war
 EXPOSE 8080
 CMD /usr/local/tomcat/bin/catalina.sh run
 
