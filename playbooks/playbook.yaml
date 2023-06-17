@@ -3,7 +3,7 @@
   become: yes
   become_user: ec2-user
   vars:
-    ansible_python_interpreter: /usr/bin/python2
+    ansible_python_interpreter: /usr/bin/python3
     docker_image_name: "project1"
     github_repo_url: "https://github.com/Anurag000-rgb/project1.git"
     dockerhub_username: "my-dockerhub-username"
@@ -12,11 +12,11 @@
 
   tasks:
   - name: install docker
-    yum: name=docker state=present
+    dnf: name=docker state=present
   - name: start docker
     service: name=docker state=started
   - name: install git
-    yum: name=git state=present
+    dnf: name=git state=present
   - name: clone a repo
     git: repo="{{ github_repo_url }}" dest="/tmp/project1"
 
