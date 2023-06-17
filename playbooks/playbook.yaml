@@ -22,7 +22,7 @@
 
   - name: Build Docker image
     become: true
-    command: docker build -t {{ docker_image_name }}:{{ docker_repo_name }} .
+    command: docker build -t {{ docker_image_name }}:{{ dockerhub_repo_name }} .
     args:
       chdir: /tmp/project1
     # community.docker.docker_image:
@@ -53,7 +53,7 @@
 
   - name: Push Docker image to DockerHub
     become: true
-    command: docker push {{ dockerhub_username }}/{{ docker_image_name }}:{{ docker_image_tag }}
+    command: docker push {{ dockerhub_username }}/{{ docker_image_name }}:{{ dockerhub_repo_name }}
 
     # community.docker.docker_image:
     #     name: "{{ dockerhub_repo_name }}"
