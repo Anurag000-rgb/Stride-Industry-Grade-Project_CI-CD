@@ -22,7 +22,7 @@
 
   - name: Build Docker image
     become: true
-    command: docker build -t {{ docker_image_name }}:{{ dockerhub_repo_name }} .
+    command: docker build -t {{ dockerhub_repo_name }}:latest .
     args:
       chdir: /tmp/project1
     # community.docker.docker_image:
