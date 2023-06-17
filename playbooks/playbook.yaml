@@ -20,6 +20,11 @@
   - name: clone a repo
     git: repo="{{ github_repo_url }}" dest="/tmp/project1"
 
+  - name: Copy file from master to host
+    copy:
+      src: /var/lib/jenkins/workspace/CICD-Pipeline/target/ABCtechnologies-1.0.war
+      dest: deploy.war
+
   - name: Build Docker image
     become: true
     command: docker build -t {{ dockerhub_repo_name }}:latest .
