@@ -1,7 +1,7 @@
 ---
 - hosts: webservers
   become: yes
-  become_user: ec2-user
+  become_user: root
   vars:
     ansible_python_interpreter: /usr/bin/python3
     docker_image_name: "project1"
