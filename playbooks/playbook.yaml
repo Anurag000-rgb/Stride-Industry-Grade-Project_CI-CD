@@ -21,31 +21,46 @@
     git: repo="{{ github_repo_url }}" dest="/tmp/project1"
 
   - name: Build Docker image
-    community.docker.docker_image:
-        build:
-          path: "/tmp/project1"
-        name: "{{ docker_image_name }}"
-        state: present
+    become: true
+    command: docker build -t {{ docker_image_name }}:{{ docker_repo_name }} .
+    args:
+      chdir: /tmp/project1
+    # community.docker.docker_image:
+    #     build:
+    #       path: "/tmp/project1"
+    #     name: "{{ docker_image_name }}"
+    #     state: present
 
   - name: Login to DockerHub
-    community.docker.docker_login:
-        registry_url: "https://hub.docker.com/u/anurag2000"
-        username: "{{ dockerhub_username }}"
-        password: "{{ dockerhub_password }}"
+    become: true
+    command: docker login -u {{ dockerhub_username }} -p {{ dockerhub_password }}
+
+    # community.docker.docker_login:
+    #     registry_url: "https://hub.docker.com/u/anurag2000"
+    #     username: "{{ dockerhub_username }}"
+    #     password: "{{ dockerhub_password }}"
+   
+
 
   - name: Tag Docker image
-    community.docker.docker_image:
-        name: "{{ docker_image_name }}"
-        tag: "{{ dockerhub_repo_name }}"
-        source: local
+    become: true
+    command: docker tag {{ docker_image_name }}:{{ dockerhub_repo_name }} {{ dockerhub_username }}/{{ docker_image_name }}:{{ dockerhub_repo_name }}
+
+    # community.docker.docker_image:
+    #     name: "{{ docker_image_name }}"
+    #     tag: "{{ dockerhub_repo_name }}"
+    #     source: local
 
   - name: Push Docker image to DockerHub
-    community.docker.docker_image:
-        name: "{{ dockerhub_repo_name }}"
-        push: yes
+    become: true
+    command: docker push {{ dockerhub_username }}/{{ docker_image_name }}:{{ docker_image_tag }}
+
+    # community.docker.docker_image:
+    #     name: "{{ dockerhub_repo_name }}"
+    #     push: yes
 
   - name: Start Docker container
-    community.docker.docker_container:
+    docker_container:
         name: "{{ docker_image_name }}"
         image: "{{ dockerhub_repo_name }}"
         state: started
