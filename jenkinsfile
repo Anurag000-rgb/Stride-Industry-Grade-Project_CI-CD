@@ -1,6 +1,6 @@
 pipeline {
     tools{
-        jdk 'JAVA'
+        jdk 'MYJAVA'
         maven 'MVN'
         git 'Default'
     }
