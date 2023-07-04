@@ -60,7 +60,7 @@ pipeline {
             steps{
                 
                 sshagent(['slave']) {
-                    sh 'scp -o StrictHostKeyChecking=no /var/lib/jenkins/workspace/CICD-Pipeline/target/ABCtechnologies-1.0.war ec2-user@44.201.204.164:/opt/tomcat/webapps'
+                    sh 'scp -o StrictHostKeyChecking=no /var/lib/jenkins/workspace/CICD-Pipeline/target/ABCtechnologies-1.0.war ec2-user@3.85.114.212:/opt/tomcat/webapps'
                 }
             }
             
