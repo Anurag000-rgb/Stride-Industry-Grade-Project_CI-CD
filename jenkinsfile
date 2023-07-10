@@ -56,15 +56,15 @@ pipeline {
             }
         }
         
-        stage('7.Deploy the code on tomcat server'){
-            steps{
+        // stage('7.Deploy the code on tomcat server'){
+        //     steps{
                 
-                sshagent(['slave']) {
-                    sh 'scp -o StrictHostKeyChecking=no /var/lib/jenkins/workspace/CICD-Pipeline/target/ABCtechnologies-1.0.war ec2-user@172.31.83.227:/opt/tomcat/webapps'
-                }
-            }
+        //         sshagent(['slave']) {
+        //             sh 'scp -o StrictHostKeyChecking=no /var/lib/jenkins/workspace/CICD-Pipeline/target/ABCtechnologies-1.0.war ec2-user@172.31.83.227:/opt/tomcat/webapps'
+        //         }
+        //     }
             
-        }
+        // }
 
         stage('8.Running playbooks and Deploying Images'){
             steps{
