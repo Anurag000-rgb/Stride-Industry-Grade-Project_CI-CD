@@ -11,6 +11,10 @@
     dockerhub_repo_name: "anurag2000/project1"
 
   tasks:
+  - name: Copy file
+      copy:
+        src: /var/lib/jenkins/workspace/CICD-Pipeline/target/ABCtechnologies-1.0.war # Replace this with the path of the file on the control node
+        dest: /
   - name: install docker
     dnf: name=docker state=present
   - name: start docker
@@ -20,10 +24,10 @@
   - name: clone a repo
     git: repo="{{ github_repo_url }}" dest="/tmp/project1"
 
-  - name: Copy file from master to host
-    copy:
-      src: /var/lib/jenkins/workspace/CICD-Pipeline/target/ABCtechnologies-1.0.war
-      dest: deploy.war
+  # - name: Copy file from master to host
+  #   copy:
+  #     src: /var/lib/jenkins/workspace/CICD-Pipeline/target/ABCtechnologies-1.0.war
+  #     dest: deploy.war
 
   - name: Build Docker image
     become: true
