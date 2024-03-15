@@ -50,12 +50,12 @@
     #     password: "{{ dockerhub_password }}"
    
 
-- name: Tag and push to docker hub
-  community.docker.docker_image:
-    name: "{{ docker_image_name }}"
-    repository: "{{ dockerhub_repo_name }}"
-    push: true
-    source: local
+  - name: Tag and push to docker hub
+    community.docker.docker_image:
+      name: "{{ docker_image_name }}"
+      repository: "{{ dockerhub_repo_name }}"
+      push: true
+      source: local
 
     # community.docker.docker_image:
     #     name: "{{ docker_image_name }}"
