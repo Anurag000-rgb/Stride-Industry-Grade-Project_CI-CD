@@ -4,7 +4,7 @@
   become_user: root
   vars:
     ansible_python_interpreter: /usr/bin/python3
-    docker_image_name: "anurag2000/project1"
+    docker_image_name: "project1"
     github_repo_url: "https://github.com/Anurag000-rgb/project1.git"
     dockerhub_username: "dockerhub-username"
     dockerhub_password: "dockerhub-password"
@@ -31,7 +31,7 @@
 
   - name: Build Docker image
     become: true
-    command: docker build -t {{ dockerhub_repo_name }}:latest .
+    command: docker build -t {{ docker_image_name }}:latest .
     args:
       chdir: /tmp/project1
     # community.docker.docker_image:
