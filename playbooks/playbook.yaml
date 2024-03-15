@@ -14,7 +14,7 @@
   - name: Copy file
     copy:
         src: /var/lib/jenkins/workspace/maven-project/target/ABCtechnologies-1.0.war # Replace this with the path of the file on the control node
-        dest: /
+        dest: /home
   - name: install docker
     dnf: name=docker state=present
   - name: start docker
