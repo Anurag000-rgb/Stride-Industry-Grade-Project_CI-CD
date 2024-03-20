@@ -1,0 +1,31 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: myapp
+  labels:
+    app: myapp
+
+spec:
+  replicas: 2
+  minReadySeconds: 45
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 2
+  selector:
+    matchLabels:
+      app: abc-tech-app
+  template:
+    metadata:
+      name: maven-project
+      labels:
+        name: maven-project
+        app: maven-project
+  spec:
+    containers:
+      - name: maven-project
+        image: anurag2000/project1
+        ports:
+          - containerPort: 80

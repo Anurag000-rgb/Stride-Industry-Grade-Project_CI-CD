@@ -1,0 +1,12 @@
+---
+- hosts: k8sNodes
+  become: yes
+  become_user: root
+  vars:
+    ansible_python_interpreter: /usr/bin/python3
+    
+
+tasks:
+  - name: kubernetes deployment file
+    command: "kubectl --kubeconfig=/etc/kubernetes/admin.conf apply -f /home/edureka/Desktop/deployment.yml"
+    register: out
