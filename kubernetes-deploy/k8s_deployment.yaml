@@ -24,8 +24,9 @@ spec:
         name: maven-project
         app: maven-project
   spec:
-    containers:
-      - name: maven-project
-        image: anurag2000/project1
-        ports:
-          - containerPort: 80
+    spec:
+      containers:
+        - name: maven-project
+          image: anurag2000/project1
+          ports:
+            - containerPort: 80
